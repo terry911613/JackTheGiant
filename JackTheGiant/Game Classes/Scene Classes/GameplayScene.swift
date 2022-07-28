@@ -13,12 +13,11 @@ class GameplayScene: SKScene {
     var mainCamera: SKCameraNode?
     var bg1: BGClass?
     var bg2: BGClass?
-    var bg3: BGClass?
     var player: Player?
     var canMove: Bool = false
     var moveLeft: Bool = false
     var center: CGFloat = .zero
-    var distanceBetweenClouds: CGFloat = 240
+    var distanceBetweenClouds: CGFloat = 300
     let minX: CGFloat = -160
     let maxX: CGFloat = 160
     private var cameraDistanceBeforeCreatingNewClouds = CGFloat()
@@ -82,7 +81,7 @@ class GameplayScene: SKScene {
                                               initClouds: true)
         
         if let mainCamera = mainCamera {
-            cameraDistanceBeforeCreatingNewClouds = mainCamera.position.y - 400
+            cameraDistanceBeforeCreatingNewClouds = mainCamera.position.y - 675
         }
         
         print("random = \(cloudsController.randomBetweenNumbers(firstNum: 2, secondNum: 5))")
@@ -91,7 +90,7 @@ class GameplayScene: SKScene {
     func getBGs() {
         bg1 = childNode(withName: "BG1") as? BGClass
         bg2 = childNode(withName: "BG2") as? BGClass
-        bg3 = childNode(withName: "BG3") as? BGClass
+//        bg3 = childNode(withName: "BG3") as? BGClass
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -116,7 +115,7 @@ class GameplayScene: SKScene {
         guard let mainCamera = mainCamera else { return }
         bg1?.moveBG(camera: mainCamera)
         bg2?.moveBG(camera: mainCamera)
-        bg3?.moveBG(camera: mainCamera)
+//        bg3?.moveBG(camera: mainCamera)
     }
     
     func createNewClouds() {
@@ -124,7 +123,7 @@ class GameplayScene: SKScene {
 
         if cameraDistanceBeforeCreatingNewClouds > mainCamera.position.y {
             
-            cameraDistanceBeforeCreatingNewClouds = mainCamera.position.y - 400
+            cameraDistanceBeforeCreatingNewClouds = mainCamera.position.y - 675
             
             cloudsController.arrangeCloudsInScene(scene: scene,
                                                   distanceBetweenClouds: distanceBetweenClouds,

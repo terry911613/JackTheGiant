@@ -11,7 +11,7 @@ class BGClass: SKSpriteNode {
     
     func moveBG(camera: SKCameraNode) {
         if position.y - size.height - 10 > camera.position.y {
-            position.y -= size.height * 3
+            position.y -= size.height * 2
         }
     }
 }
