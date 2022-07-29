@@ -73,6 +73,10 @@ class GameplayScene: SKScene {
         mainCamera = childNode(withName: "MainCamera") as? SKCameraNode
         
         getBGs()
+        getLabels()
+        
+        GameplayController.shared.initVariables()
+        
         cloudsController.arrangeCloudsInScene(scene: scene,
                                               distanceBetweenClouds: distanceBetweenClouds,
                                               center: center,
@@ -132,6 +136,12 @@ class GameplayScene: SKScene {
                                                   maxX: maxX,
                                                   initClouds: false)
         }
+    }
+    
+    func getLabels() {
+        GameplayController.shared.scoreText = mainCamera?.childNode(withName: "ScoreText") as? SKLabelNode
+        GameplayController.shared.coinText = mainCamera?.childNode(withName: "CoinText") as? SKLabelNode
+        GameplayController.shared.lifeText = mainCamera?.childNode(withName: "LifeText") as? SKLabelNode
     }
     
     func createPausePanel() {

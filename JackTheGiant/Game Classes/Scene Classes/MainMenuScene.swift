@@ -22,6 +22,7 @@ class MainMenuScene: SKScene {
 //            atPoint(location).name == "HighScore"
             if atPoint(location).name == "StartGame" {
                 if let scene = GameplayScene(fileNamed: "GameplayScene") {
+                    GameManager.shared.gameStartedFromMainMenu = true
                     scene.scaleMode = .aspectFit
                     view?.presentScene(scene, transition: .doorsOpenVertical(withDuration: 1))
                 }

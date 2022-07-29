@@ -13,9 +13,34 @@ class GameplayController {
     
     private init() {}
     
-    var number = 0
+    var scoreText: SKLabelNode?
+    var coinText: SKLabelNode?
+    var lifeText: SKLabelNode?
     
-    func printTheNumber() {
-        print("\(number)")
+    var score: Int = 0
+    var coin: Int = 0
+    var life: Int = 2
+    
+    func initVariables() {
+        
+        if GameManager.shared.gameRestartedPlayerDied {
+            
+            GameManager.shared.gameStartedFromMainMenu = false
+            
+            score = 0
+            coin = 0
+            life = 2
+            
+            scoreText?.text = "x\(score)"
+            coinText?.text = "x\(coin)"
+            lifeText?.text = "x\(life)"
+        } else {
+            
+            GameManager.shared.gameRestartedPlayerDied = false
+            
+            scoreText?.text = "x\(score)"
+            coinText?.text = "x\(coin)"
+            lifeText?.text = "x\(life)"
+        }
     }
 }
