@@ -36,18 +36,18 @@ class CloudsController {
         var clouds = [SKSpriteNode]()
         
         for _ in 0..<2 {
-            let cloud1 = SKSpriteNode(imageNamed: "new bed")
+            let cloud1 = SKSpriteNode(imageNamed: "bed")
             cloud1.name = "1"
-            let cloud2 = SKSpriteNode(imageNamed: "new bed")
+            let cloud2 = SKSpriteNode(imageNamed: "bed")
             cloud2.name = "2"
-            let cloud3 = SKSpriteNode(imageNamed: "new bed")
+            let cloud3 = SKSpriteNode(imageNamed: "bed")
             cloud3.name = "3"
             let darkCloud = SKSpriteNode(imageNamed: "Dark Cloud")
             darkCloud.name = "Dark Cloud"
             
-            cloud1.setScale(0.6)
-            cloud2.setScale(0.6)
-            cloud3.setScale(0.6)
+            cloud1.setScale(0.4)
+            cloud2.setScale(0.4)
+            cloud3.setScale(0.4)
             darkCloud.setScale(0.9)
             
             cloud1.physicsBody = SKPhysicsBody(texture: cloud1.texture!, size: cloud1.size)
@@ -100,10 +100,12 @@ class CloudsController {
             }
         }
         
+        var positionX = CGFloat()
         var positionY = CGFloat()
         
         if initClouds {
-            positionY = center - 100
+            positionX = center
+            positionY = center + 200
         } else {
             positionY = lastCloudPositionY
         }
@@ -115,14 +117,14 @@ class CloudsController {
             var randomX = CGFloat()
             
             if random == 0 {
-                randomX = randomBetweenNumbers(firstNum: center + 90, secondNum: maxX)
+                randomX = randomBetweenNumbers(firstNum: center, secondNum: maxX)
                 random = 1
             } else if random == 1 {
-                randomX = randomBetweenNumbers(firstNum: center - 90, secondNum: minX)
+                randomX = randomBetweenNumbers(firstNum: center, secondNum: minX)
                 random = 0
             }
             
-            clouds[i].position = CGPoint(x: randomX, y: positionY)
+            clouds[i].position = CGPoint(x: (initClouds && i == 0) ? positionX : randomX, y: positionY)
             clouds[i].zPosition = 3
             
             if !initClouds {

@@ -17,7 +17,7 @@ class GameplayScene: SKScene {
     var canMove: Bool = false
     var moveLeft: Bool = false
     var center: CGFloat = .zero
-    var distanceBetweenClouds: CGFloat = 300
+    var distanceBetweenClouds: CGFloat = 150
     let minX: CGFloat = -160
     let maxX: CGFloat = 160
     private var cameraDistanceBeforeCreatingNewClouds = CGFloat()
@@ -65,6 +65,8 @@ class GameplayScene: SKScene {
         
         guard let scene = scene else { return }
         
+        physicsWorld.contactDelegate = self
+        
         center = scene.size.width / scene.size.height
         
         player = childNode(withName: "Player") as? Player
@@ -102,6 +104,7 @@ class GameplayScene: SKScene {
         moveCamera()
         manageBGs()
         createNewClouds()
+        player?.setScore()
     }
     
     func managePlayer() {
@@ -178,5 +181,39 @@ class GameplayScene: SKScene {
     
     func removePausePanel() {
         pausePanel?.removeFromParent()
+    }
+}
+
+extension GameplayScene: SKPhysicsContactDelegate {
+    func didBegin(_ contact: SKPhysicsContact) {
+        var firstBody = SKPhysicsBody()
+        var secondBody = SKPhysicsBody()
+        
+        if contact.bodyA.node?.name == "Player" {
+            firstBody = contact.bodyA
+            secondBody = contact.bodyB
+        } else {
+            firstBody = contact.bodyB
+            secondBody = contact.bodyA
+        }
+        
+        if firstBody.node?.name == "Player" {
+            
+            if secondBody.node?.name == "Life" {
+                
+                GameplayController.shared.incrementLife()
+                
+                secondBody.node?.removeFromParent()
+                
+            } else if secondBody.node?.name == "Coin" {
+                
+                GameplayController.shared.incrementCoin()
+                
+                secondBody.node?.removeFromParent()
+                
+            } else if secondBody.node?.name == "DarkCloud" {
+                
+            }
+        }
     }
 }

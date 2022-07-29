@@ -19,7 +19,7 @@ class GameplayController {
     
     var score: Int = 0
     var coin: Int = 0
-    var life: Int = 2
+    var life: Int = 1
     
     func initVariables() {
         
@@ -29,7 +29,7 @@ class GameplayController {
             
             score = 0
             coin = 0
-            life = 2
+            life = 1
             
             scoreText?.text = "x\(score)"
             coinText?.text = "x\(coin)"
@@ -42,5 +42,26 @@ class GameplayController {
             coinText?.text = "x\(coin)"
             lifeText?.text = "x\(life)"
         }
+    }
+    
+    func incrementScore() {
+        score += 1
+        scoreText?.text = "\(score)"
+    }
+    
+    func incrementCoin() {
+        coin += 1
+        coinText?.text = "x\(coin)"
+        
+        score += 200
+        scoreText?.text = "\(score)"
+    }
+    
+    func incrementLife() {
+        life += 1
+        lifeText?.text = "x\(life)"
+        
+        score += 300
+        scoreText?.text = "\(score)"
     }
 }
