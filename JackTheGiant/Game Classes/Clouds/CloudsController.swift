@@ -105,7 +105,7 @@ class CloudsController {
         
         if initClouds {
             positionX = center
-            positionY = center + 200
+            positionY = center
         } else {
             positionY = lastCloudPositionY
         }

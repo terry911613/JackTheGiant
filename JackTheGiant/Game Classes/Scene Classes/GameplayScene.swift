@@ -17,9 +17,11 @@ class GameplayScene: SKScene {
     var canMove: Bool = false
     var moveLeft: Bool = false
     var center: CGFloat = .zero
+    private let playerMinX: CGFloat = -200
+    private let playerMaxX: CGFloat = 200
     var distanceBetweenClouds: CGFloat = 150
-    let minX: CGFloat = -160
-    let maxX: CGFloat = 160
+    let minX: CGFloat = -147
+    let maxX: CGFloat = 147
     private var cameraDistanceBeforeCreatingNewClouds = CGFloat()
     private var pausePanel: SKSpriteNode?
     
@@ -56,6 +58,10 @@ class GameplayScene: SKScene {
         }
     }
     
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+    }
+    
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         canMove = false
         player?.stopPlayerAnimation()
@@ -87,7 +93,7 @@ class GameplayScene: SKScene {
                                               initClouds: true)
         
         if let mainCamera = mainCamera {
-            cameraDistanceBeforeCreatingNewClouds = mainCamera.position.y - 675
+            cameraDistanceBeforeCreatingNewClouds = mainCamera.position.y - (UIScreen.main.bounds.height - 100)
         }
         
         print("random = \(cloudsController.randomBetweenNumbers(firstNum: 2, secondNum: 5))")
@@ -105,11 +111,38 @@ class GameplayScene: SKScene {
         manageBGs()
         createNewClouds()
         player?.setScore()
+        print("mainCamera?.position = \(mainCamera?.position)")
+//        checkForChildsOutOffScreen()
     }
     
     func managePlayer() {
+        guard let player = player else { return }
+
         if canMove {
-            player?.movePlayer(moveLeft: moveLeft)
+            player.movePlayer(moveLeft: moveLeft)
+        }
+        
+        if player.position.x > playerMaxX {
+            player.position.x = playerMaxX
+        } else if player.position.x < playerMinX {
+            player.position.x = playerMinX
+        }
+        
+        guard let mainCamera = mainCamera else { return }
+        
+        let screenHalfHeight = UIScreen.main.bounds.height / 2
+        let playerHalfHeight = player.size.height / 2
+        print("123 screenHalfHeight = \(screenHalfHeight)")
+        print("123 playerHalfHeight = \(playerHalfHeight)")
+        print("123 player.position.y = \(player.position.y)")
+        print("123 mainCamera.position.y = \(mainCamera.position.y)")
+        
+        if player.position.y - screenHalfHeight - playerHalfHeight > mainCamera.position.y {
+            scene?.isPaused = true
+        }
+        
+        if player.position.y + screenHalfHeight + playerHalfHeight < mainCamera.position.y {
+            scene?.isPaused = true
         }
     }
     
@@ -127,10 +160,13 @@ class GameplayScene: SKScene {
     
     func createNewClouds() {
         guard let mainCamera = mainCamera, let scene = scene else { return }
-
+        
+        print("777 cameraDistanceBeforeCreatingNewClouds = \(cameraDistanceBeforeCreatingNewClouds)")
+        print("777 mainCamera.position.y = \(mainCamera.position.y)")
         if cameraDistanceBeforeCreatingNewClouds > mainCamera.position.y {
             
-            cameraDistanceBeforeCreatingNewClouds = mainCamera.position.y - 675
+            print("777 UIScreen.main.bounds.height = \(UIScreen.main.bounds.height)")
+            cameraDistanceBeforeCreatingNewClouds = mainCamera.position.y - (UIScreen.main.bounds.height - 100)
             
             cloudsController.arrangeCloudsInScene(scene: scene,
                                                   distanceBetweenClouds: distanceBetweenClouds,
@@ -138,6 +174,22 @@ class GameplayScene: SKScene {
                                                   minX: minX,
                                                   maxX: maxX,
                                                   initClouds: false)
+//            checkForChildsOutOffScreen()
+        }
+        checkForChildsOutOffScreen()
+    }
+    
+    func checkForChildsOutOffScreen() {
+        guard let scene = scene, let mainCamera = mainCamera else { return }
+        print("777 scene.size.height = \(scene.size.height)")
+        for child in children {
+            if child.position.y > mainCamera.position.y + (scene.size.height / 2) + (child.frame.size.height / 2) {
+//                print("child.name = \(child.name)")
+                if let name = child.name, !name.contains("BG"), !name.contains("Player") {
+                    child.removeFromParent()
+                    print("name: \(name) is remove")
+                }
+            }
         }
     }
     

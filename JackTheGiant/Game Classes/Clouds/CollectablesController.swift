@@ -18,6 +18,8 @@ class CollectablesController {
                 collectable = SKSpriteNode(imageNamed: "Life")
                 collectable.name = "Life"
                 collectable.physicsBody = SKPhysicsBody(texture: collectable.texture!, size: collectable.size)
+            } else {
+                collectable.name = "Empty"
             }
         } else {
             collectable = SKSpriteNode(imageNamed: "Coin")
