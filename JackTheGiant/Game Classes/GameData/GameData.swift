@@ -51,6 +51,17 @@ class GameData {
         }
     }
     
+    public var score: Int {
+        switch difficulty {
+        case .easy:
+            return easyScore
+        case .medium:
+            return mediumScore
+        case .hard:
+            return hardScore
+        }
+    }
+    
     public var easyCoinScore: Int {
         get {
             userDef.integer(forKey: Key.easyCoinScore.rawValue)
@@ -75,6 +86,17 @@ class GameData {
         }
         set {
             userDef.set(newValue, forKey: Key.hardCoinScore.rawValue)
+        }
+    }
+    
+    public var coinScore: Int {
+        switch difficulty {
+        case .easy:
+            return easyCoinScore
+        case .medium:
+            return mediumCoinScore
+        case .hard:
+            return hardCoinScore
         }
     }
     

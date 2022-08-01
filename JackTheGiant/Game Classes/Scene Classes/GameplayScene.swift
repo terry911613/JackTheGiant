@@ -24,6 +24,9 @@ class GameplayScene: SKScene {
     let maxX: CGFloat = 147
     private var cameraDistanceBeforeCreatingNewClouds = CGFloat()
     private var pausePanel: SKSpriteNode?
+    private var acceleration = CGFloat()
+    private var cameraSpeed = CGFloat()
+    private var maxSpeed = CGFloat()
     
     override func didMove(to view: SKView) {
         initVariables()
@@ -96,6 +99,8 @@ class GameplayScene: SKScene {
             cameraDistanceBeforeCreatingNewClouds = mainCamera.position.y - (UIScreen.main.bounds.height - 100)
         }
         
+        setCameraSpeed()
+        
         print("random = \(cloudsController.randomBetweenNumbers(firstNum: 2, secondNum: 5))")
     }
     
@@ -148,7 +153,12 @@ class GameplayScene: SKScene {
     
     func moveCamera() {
         guard let mainCamera = mainCamera else { return }
-        mainCamera.position.y -= 3
+        cameraSpeed += acceleration
+        if cameraSpeed > maxSpeed {
+            cameraSpeed = maxSpeed
+        }
+        
+        mainCamera.position.y -= cameraSpeed
     }
     
     func manageBGs() {
@@ -233,6 +243,24 @@ class GameplayScene: SKScene {
     
     func removePausePanel() {
         pausePanel?.removeFromParent()
+    }
+    
+    func setCameraSpeed() {
+        let data = GameManager.shared.gameData
+        switch data.difficulty {
+        case .easy:
+            acceleration = 0.001
+            cameraSpeed = 1.5
+            maxSpeed = 4
+        case .medium:
+            acceleration = 0.002
+            cameraSpeed = 2
+            maxSpeed = 6
+        case .hard:
+            acceleration = 0.003
+            cameraSpeed = 2.5
+            maxSpeed = 8
+        }
     }
 }
 
