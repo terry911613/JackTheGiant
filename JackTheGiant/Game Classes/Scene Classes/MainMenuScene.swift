@@ -13,6 +13,7 @@ class MainMenuScene: SKScene {
     
     override func didMove(to view: SKView) {
         highScoreButton = childNode(withName: "HighScore") as? SKSpriteNode
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

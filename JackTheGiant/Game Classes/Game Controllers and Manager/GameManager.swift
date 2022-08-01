@@ -13,6 +13,8 @@ class GameManager {
     
     private init() {}
     
+    public var gameData = GameData()
+    
     var gameStartedFromMainMenu = false
-    var gameRestartedPlayerDied = false 
+    var gameRestartedPlayerDied = false
 }

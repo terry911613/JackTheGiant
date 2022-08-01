@@ -33,6 +33,10 @@
 		449FF4D5288AE9450064E6F2 /* Coin Sound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 449FF4D1288AE9450064E6F2 /* Coin Sound.wav */; };
 		449FF4DC288AF1670064E6F2 /* GameplayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449FF4DB288AF1670064E6F2 /* GameplayScene.swift */; };
 		449FF4DF288AF3C00064E6F2 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449FF4DE288AF3C00064E6F2 /* Player.swift */; };
+		44A86B592897EAD300C3C763 /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A86B582897EAD300C3C763 /* GameData.swift */; };
+		44A86B5B2897EE5900C3C763 /* AppInfoConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A86B5A2897EE5900C3C763 /* AppInfoConfig.swift */; };
+		44A86B5D2897EEFA00C3C763 /* Difficulty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A86B5C2897EEFA00C3C763 /* Difficulty.swift */; };
+		44A86B5F2897F73000C3C763 /* AppCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A86B5E2897F73000C3C763 /* AppCore.swift */; };
 		44CAA5872892B74900FED81F /* MainMenuScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 44CAA5862892B74900FED81F /* MainMenuScene.sks */; };
 		44CAA5892892BD5100FED81F /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAA5882892BD5100FED81F /* MainMenuScene.swift */; };
 /* End PBXBuildFile section */
@@ -66,6 +70,10 @@
 		449FF4D1288AE9450064E6F2 /* Coin Sound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Coin Sound.wav"; sourceTree = "<group>"; };
 		449FF4DB288AF1670064E6F2 /* GameplayScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameplayScene.swift; sourceTree = "<group>"; };
 		449FF4DE288AF3C00064E6F2 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		44A86B582897EAD300C3C763 /* GameData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
+		44A86B5A2897EE5900C3C763 /* AppInfoConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoConfig.swift; sourceTree = "<group>"; };
+		44A86B5C2897EEFA00C3C763 /* Difficulty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Difficulty.swift; sourceTree = "<group>"; };
+		44A86B5E2897F73000C3C763 /* AppCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCore.swift; sourceTree = "<group>"; };
 		44CAA5862892B74900FED81F /* MainMenuScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MainMenuScene.sks; sourceTree = "<group>"; };
 		44CAA5882892BD5100FED81F /* MainMenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -185,6 +193,7 @@
 		449FF4D9288AF1290064E6F2 /* Game Classes */ = {
 			isa = PBXGroup;
 			children = (
+				44A86B572897EAC000C3C763 /* GameData */,
 				442257922892EBE20036EB0D /* Game Controllers and Manager */,
 				449A99E228903AFF002D0384 /* Clouds */,
 				449A99DD289036BB002D0384 /* BG Class */,
@@ -211,6 +220,17 @@
 				449FF4DE288AF3C00064E6F2 /* Player.swift */,
 			);
 			path = "Player Class";
+			sourceTree = "<group>";
+		};
+		44A86B572897EAC000C3C763 /* GameData */ = {
+			isa = PBXGroup;
+			children = (
+				44A86B582897EAD300C3C763 /* GameData.swift */,
+				44A86B5C2897EEFA00C3C763 /* Difficulty.swift */,
+				44A86B5A2897EE5900C3C763 /* AppInfoConfig.swift */,
+				44A86B5E2897F73000C3C763 /* AppCore.swift */,
+			);
+			path = GameData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -298,16 +318,20 @@
 			files = (
 				441A10582893DFBE008D71A7 /* CollectablesController.swift in Sources */,
 				449FF4DC288AF1670064E6F2 /* GameplayScene.swift in Sources */,
+				44A86B5B2897EE5900C3C763 /* AppInfoConfig.swift in Sources */,
 				441A10562893D82B008D71A7 /* GameManager.swift in Sources */,
 				449A99E428903B20002D0384 /* CloudsController.swift in Sources */,
 				44CAA5892892BD5100FED81F /* MainMenuScene.swift in Sources */,
 				4422578E2892C9E50036EB0D /* HighScoreScene.swift in Sources */,
 				449FF4B9288AE75A0064E6F2 /* GameScene.swift in Sources */,
 				449FF4BB288AE75A0064E6F2 /* GameViewController.swift in Sources */,
+				44A86B5F2897F73000C3C763 /* AppCore.swift in Sources */,
 				449FF4DF288AF3C00064E6F2 /* Player.swift in Sources */,
 				449FF4B3288AE75A0064E6F2 /* AppDelegate.swift in Sources */,
 				449A99DF289036E4002D0384 /* BGClass.swift in Sources */,
+				44A86B592897EAD300C3C763 /* GameData.swift in Sources */,
 				442257942892EC030036EB0D /* GameplayController.swift in Sources */,
+				44A86B5D2897EEFA00C3C763 /* Difficulty.swift in Sources */,
 				442257902892CADE0036EB0D /* OptionScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
