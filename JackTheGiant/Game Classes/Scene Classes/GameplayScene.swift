@@ -143,11 +143,13 @@ class GameplayScene: SKScene {
         print("123 mainCamera.position.y = \(mainCamera.position.y)")
         
         if player.position.y - screenHalfHeight - playerHalfHeight > mainCamera.position.y {
-            scene?.isPaused = true
+//            scene?.isPaused = true
+            playerDiedFlow(body: nil)
         }
         
         if player.position.y + screenHalfHeight + playerHalfHeight < mainCamera.position.y {
-            scene?.isPaused = true
+//            scene?.isPaused = true
+            playerDiedFlow(body: nil)
         }
     }
     
@@ -262,6 +264,48 @@ class GameplayScene: SKScene {
             maxSpeed = 8
         }
     }
+    
+    private func playerDied() {
+        let data = GameManager.shared.gameData
+        if GameplayController.shared.life >= 0 {
+            
+            GameManager.shared.gameRestartedPlayerDied = true
+            
+            if let scene = GameplayScene(fileNamed: "GameplayScene") {
+                GameManager.shared.gameStartedFromMainMenu = true
+                scene.scaleMode = .aspectFit
+                view?.presentScene(scene, transition: .doorsOpenVertical(withDuration: 1))
+            }
+        } else {
+            if data.score < GameplayController.shared.score {
+                data.score = GameplayController.shared.score
+            }
+            if data.coinScore < GameplayController.shared.coin {
+                data.coinScore = GameplayController.shared.coin
+            }
+            
+            if let scene = MainMenuScene(fileNamed: "MainMenuScene") {
+                scene.scaleMode = .aspectFit
+                view?.presentScene(scene, transition: .doorsOpenHorizontal(withDuration: 1))
+            }
+        }
+    }
+    
+    private func playerDiedFlow(body: SKPhysicsBody?) {
+        scene?.isPaused = true
+        GameplayController.shared.life -= 1
+        
+        if GameplayController.shared.life >= 0 {
+            GameplayController.shared.lifeText?.text = "x\(GameplayController.shared.life)"
+        } else {
+            
+        }
+        body?.node?.removeFromParent()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+            self?.playerDied()
+        }
+    }
 }
 
 extension GameplayScene: SKPhysicsContactDelegate {
@@ -292,7 +336,7 @@ extension GameplayScene: SKPhysicsContactDelegate {
                 secondBody.node?.removeFromParent()
                 
             } else if secondBody.node?.name == "DarkCloud" {
-                
+                playerDiedFlow(body: firstBody)
             }
         }
     }

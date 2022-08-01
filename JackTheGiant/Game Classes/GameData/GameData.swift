@@ -24,79 +24,103 @@ class GameData {
     }
     
     // MARK: - Value
-    public var easyScore: Int {
-        get {
-            userDef.integer(forKey: Key.easyScore.rawValue)
-        }
-        set {
-            userDef.set(newValue, forKey: Key.easyScore.rawValue)
-        }
-    }
-    
-    public var mediumScore: Int {
-        get {
-            userDef.integer(forKey: Key.mediumScore.rawValue)
-        }
-        set {
-            userDef.set(newValue, forKey: Key.mediumScore.rawValue)
-        }
-    }
-    
-    public var hardScore: Int {
-        get {
-            userDef.integer(forKey: Key.hardScore.rawValue)
-        }
-        set {
-            userDef.set(newValue, forKey: Key.hardScore.rawValue)
-        }
-    }
+//    public var easyScore: Int {
+//        get {
+//            userDef.integer(forKey: Key.easyScore.rawValue)
+//        }
+//        set {
+//            userDef.set(newValue, forKey: Key.easyScore.rawValue)
+//        }
+//    }
+//
+//    public var mediumScore: Int {
+//        get {
+//            userDef.integer(forKey: Key.mediumScore.rawValue)
+//        }
+//        set {
+//            userDef.set(newValue, forKey: Key.mediumScore.rawValue)
+//        }
+//    }
+//
+//    public var hardScore: Int {
+//        get {
+//            userDef.integer(forKey: Key.hardScore.rawValue)
+//        }
+//        set {
+//            userDef.set(newValue, forKey: Key.hardScore.rawValue)
+//        }
+//    }
     
     public var score: Int {
-        switch difficulty {
-        case .easy:
-            return easyScore
-        case .medium:
-            return mediumScore
-        case .hard:
-            return hardScore
+        get {
+            switch difficulty {
+            case .easy:
+                return userDef.integer(forKey: Key.easyScore.rawValue)
+            case .medium:
+                return userDef.integer(forKey: Key.mediumScore.rawValue)
+            case .hard:
+                return userDef.integer(forKey: Key.hardScore.rawValue)
+            }
+        }
+        set {
+            switch difficulty {
+            case .easy:
+                userDef.set(newValue, forKey: Key.easyScore.rawValue)
+            case .medium:
+                userDef.set(newValue, forKey: Key.mediumScore.rawValue)
+            case .hard:
+                userDef.set(newValue, forKey: Key.hardScore.rawValue)
+            }
         }
     }
     
-    public var easyCoinScore: Int {
-        get {
-            userDef.integer(forKey: Key.easyCoinScore.rawValue)
-        }
-        set {
-            userDef.set(newValue, forKey: Key.easyCoinScore.rawValue)
-        }
-    }
-    
-    public var mediumCoinScore: Int {
-        get {
-            userDef.integer(forKey: Key.mediumCoinScore.rawValue)
-        }
-        set {
-            userDef.set(newValue, forKey: Key.mediumCoinScore.rawValue)
-        }
-    }
-    
-    public var hardCoinScore: Int {
-        get {
-            userDef.integer(forKey: Key.hardCoinScore.rawValue)
-        }
-        set {
-            userDef.set(newValue, forKey: Key.hardCoinScore.rawValue)
-        }
-    }
+//    public var easyCoinScore: Int {
+//        get {
+//            userDef.integer(forKey: Key.easyCoinScore.rawValue)
+//        }
+//        set {
+//            userDef.set(newValue, forKey: Key.easyCoinScore.rawValue)
+//        }
+//    }
+//
+//    public var mediumCoinScore: Int {
+//        get {
+//            userDef.integer(forKey: Key.mediumCoinScore.rawValue)
+//        }
+//        set {
+//            userDef.set(newValue, forKey: Key.mediumCoinScore.rawValue)
+//        }
+//    }
+//
+//    public var hardCoinScore: Int {
+//        get {
+//            userDef.integer(forKey: Key.hardCoinScore.rawValue)
+//        }
+//        set {
+//            userDef.set(newValue, forKey: Key.hardCoinScore.rawValue)
+//        }
+//    }
     
     public var coinScore: Int {
-        switch difficulty {
-        case .easy:
-            return easyCoinScore
-        case .medium:
-            return mediumCoinScore
-        case .hard:
-            return hardCoinScore
+        get {
+            switch difficulty {
+            case .easy:
+                return userDef.integer(forKey: Key.easyCoinScore.rawValue)
+            case .medium:
+                return userDef.integer(forKey: Key.mediumCoinScore.rawValue)
+            case .hard:
+                return userDef.integer(forKey: Key.hardCoinScore.rawValue)
+            }
+        }
+        set {
+            switch difficulty {
+            case .easy:
+                userDef.set(newValue, forKey: Key.easyCoinScore.rawValue)
+            case .medium:
+                userDef.set(newValue, forKey: Key.mediumCoinScore.rawValue)
+            case .hard:
+                userDef.set(newValue, forKey: Key.hardCoinScore.rawValue)
+            }
         }
     }
     

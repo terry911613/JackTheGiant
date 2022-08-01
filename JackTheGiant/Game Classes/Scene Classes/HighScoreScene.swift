@@ -13,7 +13,8 @@ class HighScoreScene: SKScene {
     private var coinLabel: SKLabelNode?
     
     override func didMove(to view: SKView) {
-        
+        setup()
+        setScore()
     }
     
     private func setup() {

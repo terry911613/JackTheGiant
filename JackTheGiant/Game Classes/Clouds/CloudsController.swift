@@ -43,7 +43,7 @@ class CloudsController {
             let cloud3 = SKSpriteNode(imageNamed: "bed")
             cloud3.name = "3"
             let darkCloud = SKSpriteNode(imageNamed: "Dark Cloud")
-            darkCloud.name = "Dark Cloud"
+            darkCloud.name = "DarkCloud"
             
             cloud1.setScale(0.4)
             cloud2.setScale(0.4)
