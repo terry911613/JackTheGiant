@@ -145,11 +145,13 @@ class GameplayScene: SKScene {
         if player.position.y - screenHalfHeight - playerHalfHeight > mainCamera.position.y {
 //            scene?.isPaused = true
             playerDiedFlow(body: nil)
+            print("WTF Out bound 1")
         }
         
         if player.position.y + screenHalfHeight + playerHalfHeight < mainCamera.position.y {
 //            scene?.isPaused = true
             playerDiedFlow(body: nil)
+            print("WTF Out bound 2")
         }
     }
     
@@ -243,6 +245,38 @@ class GameplayScene: SKScene {
         mainCamera?.addChild(pausePanel)
     }
     
+    func createEndScroePanel() {
+        let endScorePanel = SKSpriteNode(imageNamed: "Show Score")
+        let scoreLabel = SKLabelNode(fontNamed: "Blow")
+        let coinLabel = SKLabelNode(fontNamed: "Blow")
+        
+        endScorePanel.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        endScorePanel.zPosition = 8
+        endScorePanel.xScale = 1.5
+        endScorePanel.yScale = 1.5
+        
+        scoreLabel.fontSize = 50
+        scoreLabel.zPosition = 7
+        
+        coinLabel.fontSize = 50
+        coinLabel.zPosition = 7
+        
+        scoreLabel.text = "\(GameplayController.shared.score)"
+        coinLabel.text = "\(GameplayController.shared.coin)"
+        
+        endScorePanel.addChild(scoreLabel)
+        endScorePanel.addChild(coinLabel)
+        
+        guard let mainCamera = mainCamera else { return }
+
+        endScorePanel.position = CGPoint(x: mainCamera.frame.width / 2, y: mainCamera.frame.height / 2)
+        
+        scoreLabel.position = CGPoint(x: endScorePanel.position.x - 60, y: endScorePanel.position.y + 10)
+        coinLabel.position = CGPoint(x: endScorePanel.position.x - 60, y: endScorePanel.position.y - 105)
+        
+        mainCamera.addChild(endScorePanel)
+    }
+    
     func removePausePanel() {
         pausePanel?.removeFromParent()
     }
@@ -272,7 +306,6 @@ class GameplayScene: SKScene {
             GameManager.shared.gameRestartedPlayerDied = true
             
             if let scene = GameplayScene(fileNamed: "GameplayScene") {
-                GameManager.shared.gameStartedFromMainMenu = true
                 scene.scaleMode = .aspectFit
                 view?.presentScene(scene, transition: .doorsOpenVertical(withDuration: 1))
             }
@@ -294,11 +327,11 @@ class GameplayScene: SKScene {
     private func playerDiedFlow(body: SKPhysicsBody?) {
         scene?.isPaused = true
         GameplayController.shared.life -= 1
-        
+        print("WTF GameplayController.shared.life = \(GameplayController.shared.life)")
         if GameplayController.shared.life >= 0 {
             GameplayController.shared.lifeText?.text = "x\(GameplayController.shared.life)"
         } else {
-            
+            createEndScroePanel()
         }
         body?.node?.removeFromParent()
         
@@ -325,17 +358,22 @@ extension GameplayScene: SKPhysicsContactDelegate {
             
             if secondBody.node?.name == "Life" {
                 
+                run(SKAction.playSoundFileNamed("Life Sound.wav", waitForCompletion: false))
+                
                 GameplayController.shared.incrementLife()
                 
                 secondBody.node?.removeFromParent()
                 
             } else if secondBody.node?.name == "Coin" {
                 
+                run(SKAction.playSoundFileNamed("Coin Sound.wav", waitForCompletion: false))
+                
                 GameplayController.shared.incrementCoin()
                 
                 secondBody.node?.removeFromParent()
                 
             } else if secondBody.node?.name == "DarkCloud" {
+                print("WTF DarkCloud")
                 playerDiedFlow(body: firstBody)
             }
         }

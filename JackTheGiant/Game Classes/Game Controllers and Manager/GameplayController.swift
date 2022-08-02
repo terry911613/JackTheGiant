@@ -23,7 +23,7 @@ class GameplayController {
     
     func initVariables() {
         
-        if GameManager.shared.gameRestartedPlayerDied {
+        if GameManager.shared.gameStartedFromMainMenu {
             
             GameManager.shared.gameStartedFromMainMenu = false
             
@@ -34,7 +34,7 @@ class GameplayController {
             scoreText?.text = "x\(score)"
             coinText?.text = "x\(coin)"
             lifeText?.text = "x\(life)"
-        } else {
+        } else if GameManager.shared.gameRestartedPlayerDied {
             
             GameManager.shared.gameRestartedPlayerDied = false
             
