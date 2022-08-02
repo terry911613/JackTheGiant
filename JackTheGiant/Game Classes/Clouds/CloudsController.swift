@@ -90,6 +90,7 @@ class CloudsController {
                               center: CGFloat,
                               minX: CGFloat,
                               maxX: CGFloat,
+                              player: Player?,
                               initClouds: Bool) {
         
         var clouds = createClouds()
@@ -140,6 +141,11 @@ class CloudsController {
             scene.addChild(clouds[i])
             positionY -= distanceBetweenClouds
             lastCloudPositionY = positionY
+            
+            if initClouds {
+                guard let player = player else { return }
+                player.position = CGPoint(x: clouds[0].position.x, y: clouds[0].position.y + player.frame.size.height / 2)
+            }
         }
     }
 }

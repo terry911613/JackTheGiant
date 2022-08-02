@@ -93,6 +93,7 @@ class GameplayScene: SKScene {
                                               center: center,
                                               minX: minX,
                                               maxX: maxX,
+                                              player: player,
                                               initClouds: true)
         
         if let mainCamera = mainCamera {
@@ -187,6 +188,7 @@ class GameplayScene: SKScene {
                                                   center: center,
                                                   minX: minX,
                                                   maxX: maxX,
+                                                  player: player,
                                                   initClouds: false)
 //            checkForChildsOutOffScreen()
         }
